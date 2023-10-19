@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "company")
+@Table()
 @Entity()
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Where(clause = "deleted = false")
 public class Company extends GenericEntity{
