@@ -26,4 +26,7 @@ public class Course extends GenericEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "course")
     private List<Video> videos = new ArrayList<>();
+
+    @Column
+    private Company company;
 }

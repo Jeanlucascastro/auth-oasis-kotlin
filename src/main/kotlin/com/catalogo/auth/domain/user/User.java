@@ -1,5 +1,6 @@
 package com.catalogo.auth.domain.user;
 
+import com.catalogo.auth.domain.Company;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,7 @@ public class User implements UserDetails {
     private String login;
     private String password;
     private UserRole role;
+    private Company company;
 
     public User(String login, String password, UserRole role){
         this.login = login;
