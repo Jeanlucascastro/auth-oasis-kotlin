@@ -1,21 +1,19 @@
 package com.catalogo.auth.services;
 
-import com.catalogo.auth.domain.Course;
 import com.catalogo.auth.domain.Video;
 import com.catalogo.auth.domain.DTO.VideoDTO;
 import com.catalogo.auth.exception.GenericException;
-import com.catalogo.auth.repositories.CourseRepository;
 import com.catalogo.auth.repositories.VideoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -62,6 +60,10 @@ public class VideoService {
 
     public Video findById(Long id) {
         return this.videoRepository.findById(id).orElseThrow(() -> new GenericException("BC-0003"));
+    }
+
+    public List<Video> findVideosByCourseId(Long courseId) {
+        return videoRepository.findAllByCourseId(courseId);
     }
 
 }

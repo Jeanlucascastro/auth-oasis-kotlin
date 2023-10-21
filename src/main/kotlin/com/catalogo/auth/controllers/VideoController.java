@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -35,7 +36,6 @@ public class VideoController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
-//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Video> saveVideo(@RequestBody VideoDTO videoDTO) {
         Video video = new Video();
         video.setName(videoDTO.getName());
@@ -90,5 +90,10 @@ public class VideoController {
         } catch (GenericException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/byCourse/{courseId}")
+    public List<Video> getVideosByCourseId(@PathVariable Long courseId) {
+        return videoService.findVideosByCourseId(courseId);
     }
 }
