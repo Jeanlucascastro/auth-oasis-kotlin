@@ -1,11 +1,17 @@
 package com.catalogo.auth.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class GenericEntity implements Serializable {
 
     @Id
@@ -27,37 +33,6 @@ public class GenericEntity implements Serializable {
     private LocalDateTime dateUpdate;
 
 
-    public GenericEntity() {
-
-    }
-
-    public GenericEntity(Long id, boolean deleted, LocalDateTime dateCreate, LocalDateTime dateUpdate, Boolean ativo) {
-        this.id = id;
-        this.deleted = deleted;
-        this.dateCreate = dateCreate;
-        this.dateUpdate = dateUpdate;
-        this.ativo = ativo;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public void setDateCreate(LocalDateTime dateCreate) {
-        this.dateCreate = dateCreate;
-    }
-
-    public void setDateUpdate(LocalDateTime dateUpdate) {
-        this.dateUpdate = dateUpdate;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
 
     @PrePersist
     private void fillDate() {
