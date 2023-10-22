@@ -1,5 +1,6 @@
 package com.catalogo.auth.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,4 +16,9 @@ import org.hibernate.annotations.Where;
 @Where(clause = "deleted = false")
 public class Company extends GenericEntity{
 
+    @Column
+    private String name;
+
+    @Column
+    private String description;
 }
