@@ -1,11 +1,13 @@
 package com.catalogo.auth.controllers;
 
+import com.catalogo.auth.domain.Company;
 import com.catalogo.auth.domain.user.AuthenticationDTO;
 import com.catalogo.auth.domain.user.LoginResponseDTO;
 import com.catalogo.auth.domain.user.RegisterDTO;
 import com.catalogo.auth.domain.user.User;
 import com.catalogo.auth.security.TokenService;
 import com.catalogo.auth.repositories.UserRepository;
+import com.catalogo.auth.services.CompanyService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,9 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private CompanyService companyService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
@@ -38,11 +43,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterDTO> register(@RequestBody @Valid RegisterDTO data){
+    public ResponseEntity<RegisterDTO> register(@RequestBody @Valid RegisterDTO data, Long companyId){
         if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.role());
+
+        Company company = this.companyService.findbyId(companyId);
+
+        User newUser = new User(data.login(), encryptedPassword, data.role(), company);
 
         User save = this.repository.save(newUser);
 

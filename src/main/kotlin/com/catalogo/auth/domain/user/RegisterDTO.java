@@ -1,4 +1,6 @@
 package com.catalogo.auth.domain.user;
 
-public record RegisterDTO(String login, String password, UserRole role) {
+import com.catalogo.auth.domain.Company;
+
+public record RegisterDTO(String login, String password, UserRole role, Company company) {
 }
