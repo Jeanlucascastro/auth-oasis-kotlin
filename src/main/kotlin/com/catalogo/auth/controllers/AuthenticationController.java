@@ -43,12 +43,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterDTO> register(@RequestBody @Valid RegisterDTO data, Long companyId){
+    public ResponseEntity<RegisterDTO> register(@RequestBody @Valid RegisterDTO data){
         if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
 
-        Company company = this.companyService.findbyId(companyId);
+        System.out.println("?? " + data.companyId());
+        Company company = this.companyService.findbyId(data.companyId());
 
         User newUser = new User(data.login(), encryptedPassword, data.role(), company);
 
