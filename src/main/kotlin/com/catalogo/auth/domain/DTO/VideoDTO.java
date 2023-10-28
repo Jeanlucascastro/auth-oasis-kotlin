@@ -10,12 +10,9 @@ import lombok.NoArgsConstructor;
 public class VideoDTO {
 
     private String name;
-
     private String url;
-
     private Long ordering;
-
     private Long courseId;
-
+    private Long companyId;
 
 }

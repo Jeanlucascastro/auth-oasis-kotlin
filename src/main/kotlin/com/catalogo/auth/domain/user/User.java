@@ -26,6 +26,7 @@ public class User implements UserDetails {
     private String login;
     private String password;
     private UserRole role;
+    @Getter
     private Company company;
 
     public User(String login, String password, UserRole role, Company company){
@@ -39,6 +40,10 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override

@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class VideoCommentDTO {
 
     private String text;
-
     private Long videoId;
+    private Long companyId;
 }

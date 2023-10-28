@@ -1,5 +1,6 @@
 package com.catalogo.auth.services;
 
+import com.catalogo.auth.domain.Company;
 import com.catalogo.auth.domain.Course;
 import com.catalogo.auth.domain.DTO.CourseDTO;
 import com.catalogo.auth.exception.GenericException;
@@ -20,11 +21,15 @@ public class CourseService {
     @Autowired
     CourseRepository courseRepository;
 
+    @Autowired
+    CompanyService companyService;
+
     public Course saveCourse(@RequestBody CourseDTO courseDTO) {
         Course course = new Course();
         course.setName(courseDTO.getName());
+        Company company = this.companyService.findbyId(courseDTO.getCompanyId());
+        course.setCompany(company);
         course.setDescription(courseDTO.getDescription());
-
         return this.courseRepository.save(course);
     }
 
