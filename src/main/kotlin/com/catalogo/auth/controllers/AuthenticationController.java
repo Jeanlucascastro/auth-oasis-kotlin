@@ -48,7 +48,6 @@ public class AuthenticationController {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
 
-        System.out.println("?? " + data.companyId());
         Company company = this.companyService.findbyId(data.companyId());
 
         User newUser = new User(data.login(), encryptedPassword, data.role(), company);

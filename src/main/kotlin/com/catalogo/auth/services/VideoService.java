@@ -42,8 +42,6 @@ public class VideoService {
         video.setOrdering(videoDTO.getOrdering());
         Optional<Course> course = Optional.ofNullable(this.courseService.findbyId(videoDTO.getCourseId()));
         course.ifPresent(video::setCourse);
-        Company company = this.companyService.findbyId(videoDTO.getCompanyId());
-        video.setCompany(company);
         return this.videoRepository.save(video);
     }
 
