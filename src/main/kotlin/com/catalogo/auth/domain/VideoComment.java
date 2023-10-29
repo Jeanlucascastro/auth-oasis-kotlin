@@ -22,5 +22,4 @@ public class VideoComment extends GenericEntity {
     @ManyToOne
     @JoinColumn(name = "video_id")
     private Video video;
-
 }

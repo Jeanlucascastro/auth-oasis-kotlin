@@ -1,5 +1,6 @@
 package com.catalogo.auth.services;
 
+import com.catalogo.auth.domain.Company;
 import com.catalogo.auth.domain.Course;
 import com.catalogo.auth.domain.DTO.VideoCommentDTO;
 import com.catalogo.auth.domain.Video;

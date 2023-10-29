@@ -1,5 +1,7 @@
 package com.catalogo.auth.services;
 
+import com.catalogo.auth.domain.Company;
+import com.catalogo.auth.domain.Course;
 import com.catalogo.auth.domain.Video;
 import com.catalogo.auth.domain.DTO.VideoDTO;
 import com.catalogo.auth.exception.GenericException;
@@ -23,11 +25,25 @@ public class VideoService {
     VideoRepository videoRepository;
 
     @Autowired
+    CourseService courseService;
+
+    @Autowired
+    CompanyService companyService;
+
+    @Autowired
     public VideoService(VideoRepository videoRepository) {
         this.videoRepository = videoRepository;
     }
 
-    public Video saveVideo(@RequestBody Video video) {
+    public Video saveVideo(@RequestBody VideoDTO videoDTO) {
+        Video video = new Video();
+        video.setName(videoDTO.getName());
+        video.setUrl(videoDTO.getUrl());
+        video.setOrdering(videoDTO.getOrdering());
+        Optional<Course> course = Optional.ofNullable(this.courseService.findbyId(videoDTO.getCourseId()));
+        course.ifPresent(video::setCourse);
+        Company company = this.companyService.findbyId(videoDTO.getCompanyId());
+        video.setCompany(company);
         return this.videoRepository.save(video);
     }
 

@@ -37,13 +37,7 @@ public class VideoController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
     public ResponseEntity<Video> saveVideo(@RequestBody VideoDTO videoDTO) {
-        Video video = new Video();
-        video.setName(videoDTO.getName());
-        video.setUrl(videoDTO.getUrl());
-        video.setOrdering(videoDTO.getOrdering());
-        Optional<Course> course = Optional.ofNullable(this.courseService.findbyId(videoDTO.getCourseId()));
-        course.ifPresent(video::setCourse);
-        Video savedVideo = this.videoService.saveVideo(video);
+        Video savedVideo = this.videoService.saveVideo(videoDTO);
         return new ResponseEntity<>(savedVideo, HttpStatus.CREATED);
     }
 

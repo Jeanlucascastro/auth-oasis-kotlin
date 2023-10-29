@@ -34,4 +34,7 @@ public class Video extends GenericEntity {
     @OneToMany(mappedBy = "video")
     private List<VideoComment> videoComments = new ArrayList<>();
 
+    @Column
+    private Company company;
+
 }
