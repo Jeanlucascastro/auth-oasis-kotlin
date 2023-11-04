@@ -1,6 +1,5 @@
 package com.catalogo.auth.controllers;
 
-import com.catalogo.auth.domain.Course;
 import com.catalogo.auth.domain.Video;
 import com.catalogo.auth.domain.DTO.VideoDTO;
 import com.catalogo.auth.exception.GenericException;
@@ -16,11 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController()
 @RequestMapping(value = "/video")
+@CrossOrigin(origins = "*")
 public class VideoController {
 
     @Autowired

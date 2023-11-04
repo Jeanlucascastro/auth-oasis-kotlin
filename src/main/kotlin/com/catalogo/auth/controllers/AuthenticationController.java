@@ -1,10 +1,7 @@
 package com.catalogo.auth.controllers;
 
 import com.catalogo.auth.domain.Company;
-import com.catalogo.auth.domain.user.AuthenticationDTO;
-import com.catalogo.auth.domain.user.LoginResponseDTO;
-import com.catalogo.auth.domain.user.RegisterDTO;
-import com.catalogo.auth.domain.user.User;
+import com.catalogo.auth.domain.user.*;
 import com.catalogo.auth.security.TokenService;
 import com.catalogo.auth.repositories.UserRepository;
 import com.catalogo.auth.services.CompanyService;
@@ -36,10 +33,11 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-
+        User user = (User) this.repository.findByLogin(data.login());
+        UserDTO  userDTO = new UserDTO(user.getId(), user.getLogin(), user.getUsername());
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.ok(new LoginResponseDTO(token, userDTO));
     }
 
     @PostMapping("/register")
